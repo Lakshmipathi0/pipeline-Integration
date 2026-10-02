@@ -66,8 +66,8 @@ public class BaseTest {
 
 	public ExtentTest logger;
 	public Logger log;
-	String Username = "fevid66037@aikunkun.com"; 
-	String Passsword = Base64Coder.decodeString("UGF0aGlAMTIz");
+//	String Username = "fevid66037@aikunkun.com"; 
+//	String Passsword = Base64Coder.decodeString("UGF0aGlAMTIz");
 	Robot r;
 
 	//Object initialization
@@ -78,7 +78,7 @@ public class BaseTest {
 
 	@BeforeSuite(alwaysRun = true)
 	@Parameters("env")
-	public String launchBrowser(ITestContext context,@Optional String env)
+	public String launchBrowser(ITestContext context,@Optional("Test") String env)
 			throws InterruptedException, Exception {
 
 		suiteName = context.getCurrentXmlTest().getSuite().getName(); // To retrive the suite name from the test context.  
@@ -164,7 +164,7 @@ public class BaseTest {
 		TestReporter.log("Chrome browser launched");
 		switch(env) {
 		case "Test":
-			driver.get("https://accounts.test.gonockpoint.com/auth/registration");
+			driver.get("https://riderapp-admin.eateasy.ae/");
 			TestReporter.log("Launched nockpoint "+env+" URL");
 			break;
 		case "UDM2.0":
@@ -186,23 +186,39 @@ public class BaseTest {
 
 	public void logInToApplication() throws Exception {
 
-		TestReporter.log("Click on Login option in registration page");	
-		clickOperation(createWebElement(By.xpath("//div[@class='col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12 text-right _loginRedirectText']/p/a")));
+		// TestReporter.log("Click on Login option in registration page");	
+		// clickOperation(createWebElement(By.xpath("//div[@class='col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12 text-right _loginRedirectText']/p/a")));
 
-		TestReporter.log("Click on Email field");	
-		clickOperation(createWebElement(By.xpath("//input[@type='email']")));
+		// TestReporter.log("Click on Email field");	
+		// clickOperation(createWebElement(By.xpath("//input[@type='email']")));
 
-		TestReporter.log("Enter the user Email ID");
-		createWebElement(By.xpath("//input[@type='email']")).sendKeys(Username);
+		// TestReporter.log("Enter the user Email ID");
+		// createWebElement(By.xpath("//input[@type='email']")).sendKeys(Username);
 
-		TestReporter.log("Click on Password field");
-		clickOperation(createWebElement(By.xpath("//input[@type='password']")));
+		// TestReporter.log("Click on Password field");
+		// clickOperation(createWebElement(By.xpath("//input[@type='password']")));
 
-		TestReporter.log("Enter the Password");
-		createWebElement(By.xpath("//input[@type='password']")).sendKeys(Passsword);
+		// TestReporter.log("Enter the Password");
+		// createWebElement(By.xpath("//input[@type='password']")).sendKeys(Passsword);
 
-		TestReporter.log("Click on Login");
-		clickOperation(createWebElement(By.xpath("//span[@class='auth0-label-submit']")));
+		// TestReporter.log("Click on Login");
+		// clickOperation(createWebElement(By.xpath("//span[@class='auth0-label-submit']")));
+
+		TestReporter.log("Click On Email field");
+		clickOperation(createWebElement(By.xpath("//input[@id='email']")));
+
+        TestReporter.log("Enter the Email");
+        createWebElement(By.xpath("//input[@id='email']")).sendKeys("admin@admin.com");
+
+		TestReporter.log("Click On Password field");
+		clickOperation(createWebElement(By.xpath("//input[@id='password']")));
+
+        TestReporter.log("Enter the Password");
+        createWebElement(By.xpath("//input[@id='password']")).sendKeys("Eateasy@123");
+
+        TestReporter.log("Click on sign in Button");
+		clickOperation(createWebElement(By.xpath("//input[@value='Sign In']")));
+
 
 	}
 
@@ -217,17 +233,24 @@ public class BaseTest {
 
 		TestReporter.log("End of execution");
 		waitseconds(20);
-		// Logout of Application
-		TestReporter.log("Click on profile");
-		clickOperation(createWebElement(By.xpath("//*[@id='user-icon']")));
+		// // Logout of Application
+		// TestReporter.log("Click on profile");
+		// clickOperation(createWebElement(By.xpath("//*[@id='user-icon']")));
 
-		WebElement Logout = createWebElement(By.xpath("//div[@class='col-md-3 _curpointer']//span"));
+		// WebElement Logout = createWebElement(By.xpath("//div[@class='col-md-3 _curpointer']//span"));
 
-		// Click on Logout button to logout from the application
-		TestReporter.log("Click on Logout button");
-		JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;  // Unnon pop up occures, java scirpt will help what u want
-		javascriptExecutor.executeScript("arguments[0].click();", Logout);
-		TestReporter.log("Logged out from the Nockpoint application");
+		// // Click on Logout button to logout from the application
+		// TestReporter.log("Click on Logout button");
+		// JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;  // Unnon pop up occures, java scirpt will help what u want
+		// javascriptExecutor.executeScript("arguments[0].click();", Logout);
+		// TestReporter.log("Logged out from the Nockpoint application");
+
+        TestReporter.log("Hover on rider logout image");
+		 mouseHoverOnElement(createWebElement(By.xpath("//img[@alt='Profile']")));
+
+		 TestReporter.log("Click on Logout Option");
+		 clickOperation(createWebElement(By.xpath("//i[@class='ri-shut-down-line']")));
+
 	}
 
 	/**
